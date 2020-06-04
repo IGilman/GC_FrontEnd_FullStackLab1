@@ -1,0 +1,29 @@
+<main>
+  <section class="main-content">
+    <h1>TODO Lst</h1>
+    <p class="about">A place to store your todos</p>
+    <form class="form">
+      <label for="filter"></label>
+      <input class="input" type="text" id="filter" name="filter" placeholder="Filter your to-dos" ngModel>
+    </form>
+    <ol class="ordered-list">
+      <li class="list-item" *ngFor="let item of todos; index as i">
+        <div class="item-container">
+          <button *ngIf="!item.completed" class="complete-btn" (click)=completedTodo(item.id)>
+            Complete
+          </button>
+          <p class="task" [ngClass]="{ completed: item.completed }">
+            {{item.task}}
+          </p>
+          <button (click)=deleteTodo(item.id)>X</button>
+        </div>
+      </li>
+    </ol>
+    <form class="form" #todoForm="ngForm" (ngSubmit)=addTodo(todoForm)>
+      <label for="task"></label>
+      <!-- learned a valuable lesson here that name/id need to match the column of your DB - I was getting null for a while -->
+      <input class="input" type="text" name="task" id="task" placeholder="Add your to-do" ngModel />
+      <button class="add-btn">Add</button>
+    </form>
+  </section>
+</main>
